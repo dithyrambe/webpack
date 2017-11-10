@@ -7,6 +7,15 @@ import App from './App'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 {{#router}}
 import router from './router'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 {{/router}}
+import L from 'leaflet'
+
+// Work arround for marker issue (https://github.com/KoRiGaN/Vue2Leaflet/issues/96)
+delete L.Icon.Default.prototype._getIconUrl
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+})
 
 Vue.config.productionTip = false{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 
